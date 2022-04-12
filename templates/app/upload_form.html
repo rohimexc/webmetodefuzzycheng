@@ -1,0 +1,39 @@
+{% extends 'app/home.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="card-body">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Form Upload Data</h6>
+            <p class="m-0 font-weight-bold text-primary">1. Pastikan telah menghapus data pada Tabel</p>
+            <p class="m-0 font-weight-bold text-primary">2. Sebelum di Upload rename nama file menjadi "data"</p>
+            <p class="m-0 font-weight-bold text-primary">3. Sebelum di Upload rename nama kolom berisi tanggal menjadi "DATE"</p>
+            <p class="m-0 font-weight-bold text-primary">4. Sebelum di Upload rename nama kolom berisi data sebenarnya menjadi "DTG"</p>
+            
+    
+        </div>
+        <div class="card-body">
+            
+                <form method="post" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  {{ form | crispy }}
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </form><hr>
+                <ul>
+                {% for document in documents %}
+                    <li>
+                        <a href="{{ document.upload_file.url }}">{{ document.upload_file.name }}</a>
+                        <small>({{ document.upload_file.size|filesizeformat }}) - {{document.upload_date}}</small>
+                    </li>
+                {% endfor %}
+                </ul>
+        </div>
+    </div>
+
+</div>
+
+</div>
+
+
+{% endblock content %}

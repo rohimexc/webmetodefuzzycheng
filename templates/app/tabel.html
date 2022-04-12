@@ -1,0 +1,163 @@
+{% extends 'app/home.html' %}
+{% load static %}
+
+{% block content %}
+                <div class="container-fluid">
+                    
+
+                    {% if status == 1 %}
+                    <div class="alert alert-info" role="alert">
+                        Klik <a href="{% url 'proses' %}" class="alert-link">proses</a> untuk mengolah data.
+                    </div>
+                    {% elif status == 2 %}
+                    <div class="alert alert-success" role="alert">
+                        Selamat data telah berhasil diolah. Klik lihat <a href="{% url 'chart' %}" class="alert-link">grafik</a>.
+                    </div>
+                    {% else %}
+                        <form action="{% url 'tabel' %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary btn-lg btn-block" name="submit">Ekstrak Data</button>
+                        </form>
+                        <br>
+                    {% endif %}
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <div class="row">
+                                <div class="col-xl-10">
+                                    <h6 class="font-weight-bold text-primary">Tabel Hasil FLR</h6>
+                                </div>
+                                {% if status == 1 %}
+                                <div class="col-xl-2">
+                                    <form action="{% url 'hapusdata' %}" method="POST">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-warning float-right" name="submit">Ganti data</button>
+                                    </form>
+                                    
+                                </div>
+                                {% elif status == 2 %}
+                                <div class="col-xl-2">
+                                    <form action="{% url 'hapusdata' %}" method="POST">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-danger float-right" name="submit">Hapus data</button>
+                                    </form>
+                                    
+                                </div>
+                                {% endif %}
+                            </div>
+                                
+                          
+                        </div>
+                        {% if status == 0 or status == 1 %}  
+                        <div class="card-body">
+                            <div class="table table-responsive">
+                                <table class="table table-bordered" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            
+                                            <th>No.</th>
+                                            <th>Tanggal</th>
+                                            <th>Data</th>
+                                            
+                                            
+                                                
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            
+                                            <th colspan="2">Banyak Data </th>
+                                            <th>{{jd}}</th>
+                                            
+                                            
+                                            
+                                        </tr>
+                                    </tfoot>
+                                    
+                                    <tbody>
+                                        {% for i in tabel %}
+                                        <tr>
+                                            <td>{{i.no}}</td>
+                                            <td>{{i.tanggal}}</td>
+                                            <td>{{i.data}}</td>
+                                            
+                                            
+                                            
+                                        </tr>
+                                        {% endfor %}
+                                       
+                                       
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        {% elif status == 2 %}
+
+                        <div class="card-body">
+                            <div class="table table-responsive">
+                                <table class="table table-bordered" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            
+                                            <th>No.</th>
+                                            <th>Tanggal</th>
+                                            <th>Data</th>
+                                            <th>Keterangan 1</th>
+                                            <th>-</th>
+                                            <th>Keterangan 2</th>
+                                            <th>Peramalan</th>
+                                            <th>MAPE (%)</th>
+                                            
+                                                
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            
+                                            <th colspan="2">Banyak Data </th>
+                                            <th>{{jd}}</th>
+                                            <th colspan="4">MAPE rata-rata (%) </th>
+                                            {% for i in rata %}
+                                            <th>{{i.rata}}</th>
+                                            {% endfor %}
+                                            
+                                            
+                                        </tr>
+                                    </tfoot>
+                                    
+                                    <tbody>
+                                        {% for i in tabel %}
+                                        <tr>
+                                            <td>{{i.no}}</td>
+                                            <td>{{i.tanggal}}</td>
+                                            <td>{{i.data}}</td>
+                                            <td>{{i.ket1}}</td>
+                                            <th>&xrarr;</th>
+                                            <td>{{i.ket2}}</td>
+                                            <td>{{i.peramalan}}</td>
+                                            <td>{{i.akurasi}}</td>
+                                            
+                                            
+                                        </tr>
+                                        {% endfor %}
+                                       
+                                       
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        {% endif %}
+                        
+                    </div>
+
+                </div>
+
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+    
+    
+{% endblock content %}

@@ -1,0 +1,298 @@
+{% extends 'app/home.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container-fluid">
+    {% if status == 0 %}
+    <form action="{% url 'proses' %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary btn-lg btn-block" name="submit">Klik Me First!</button>
+    </form>
+    <br>
+    {% endif %}
+    {% if status == 2 %}
+    <div class="alert alert-success" role="alert">
+        Lihat <a href="{% url 'tabel' %}" class="alert-link">tabel</a>. untuk menampilkan akurasi peramalan
+    </div>
+    {% endif %}
+    {% if status == 1 or status == 0 %}
+    <div class="row">
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-6 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Dmin</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{minim}}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Earnings (Annual) Card Example -->
+        <div class="col-xl-6 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Dmaks</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{maks}}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <form method="post">
+        {% csrf_token %}
+
+        {{ form|crispy }}
+        
+        <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+    <hr>
+    {% endif %}
+    <div class="row">
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Dmin</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{bb}}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Earnings (Annual) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Dmax</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ba}}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                D1</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{dmin}}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Earnings (Annual) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                D2</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{dmaks}}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <div class="row">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Jumlah Data</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{jd}}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Range</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ra}}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Lebar Interval</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{lin}}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Earnings (Annual) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Banyak Kelas</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{bk}}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Tabel Kelas Interval</h6>
+        </div>
+        <div class="row">
+            <div class="col-xl-12 col-md-6 mb-4">
+                <div class="card-body">
+                    <div class="table table-hover">
+                        <table class="table table-bordered" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Kelas Interval</th>
+                                    <th>Batas Atas</th>
+                                    <th>Batas Bawah</th>
+                                    <th>Mid Point</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in klsin %}
+                                <tr>
+                                    <td>{{i.ki}}</td>
+                                    <td>{{i.batasatas}}</td>
+                                    <td>{{i.batasbawah}}</td>
+                                    <td>{{i.midpoint}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        
+                    </div>
+
+                </div>
+
+    
+            </div>
+
+
+            
+        </div>
+    
+    </div>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Tabel Defuzzifikasi</h6>
+        </div>
+        <div class="row">
+            <div class="col-xl-12 col-md-6 mb-4">
+                <div class="card-body">
+                    <div class="table table-hover">
+                        <table class="table table-bordered" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Current state</th>
+                                    <th>-</th>
+                                    <th>Next state</th>
+                                    <th>Peramalan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in dfz %}
+                                <tr>
+                                    <td>{{i.cr}}</td>
+                                    <td>&xrarr;</td>
+                                    <td>{{i.ns}}</td>
+                                    <td>{{i.peram}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        
+                    </div>
+
+                </div>
+
+    
+            </div>
+
+
+            
+        </div>
+    
+    </div>
+
+
+
+</div>
+
+</div>
+{% endblock content %}

@@ -1,0 +1,68 @@
+{% extends 'app/home.html' %}
+{% load static %}
+
+{% block content %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <div class="card-body">
+        <div class="chart-area">
+            <canvas id="myChart" height="110px"></canvas>
+        </div>
+    </div>       
+</div>
+{% endblock content %}
+{% block scripts %}
+
+<script>
+    
+    let label={{label|safe}};
+    let dataa={{dataa|safe}};
+    let dataa2={{dataa2|safe}};
+    let dataseb={
+                label: 'Data Sebenarnya',
+                data: dataa, 
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.2)',
+                    
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
+                    
+                ],
+                borderWidth: 1
+                }
+    let dataper={
+                label: 'Data Peramalan',
+                data: dataa2, 
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    
+                    
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    
+                    
+                ],
+                borderWidth: 1
+                }
+                
+    
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: label,
+            datasets: [dataseb,dataper]
+            },
+        
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+
+{% endblock scripts %}
